@@ -80,7 +80,7 @@ def Observables(lattice,N,step,eqstep):
         specificheat.append(specheat)
         suscept.append(SUCs)
     data=pd.DataFrame({'T':T,'E':energies,'M':magnet,'Specific heat':specificheat,'Susceptib':suscept})
-    data.to_csv('ising_data.csv',index=False)
+    data.to_csv('ising data.csv',index=False)
    
 lattice=initial_arrrangements(N,p)
 Observables(lattice,N,step,eqstep)     
