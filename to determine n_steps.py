@@ -10,14 +10,14 @@ def magnetisation(lattice):
 def nearest_neighbours(lattice,i,j):
     return  lattice[(i+1)%N,j]+lattice[(i-1)%N,j]+lattice[i,(j+1)%N]+lattice[i,(j-1)%N]
 
-def init(N,p):
+def initial_arrrangements(N,p):
     lattice1 = np.random.random(size=(N, N))
     lattice = np.zeros((N,N))    
     lattice[lattice1>=p] = 1
     lattice[lattice1<p] = -1
     return lattice
 
-def mc_step(lattice):
+def Rearrange(lattice):
     beta=1
     for a in range(N):
         for b in range(N):
@@ -40,10 +40,10 @@ def nearest_neighbours(lattice,i,j):
 
 M=[]
 n_steps=[]
-lattice=init(N,p)
+lattice=initial_arrrangements(N,p)
 for i in range(500):
     n_steps.append(i)
-    mc_step(lattice)
+    Rearrange(lattice)
     M.append(magnetisation(lattice)/N**2)
 
 plt.plot(n_steps,M)
