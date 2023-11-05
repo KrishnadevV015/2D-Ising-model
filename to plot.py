@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-file=pd.read_csv('ising_0.75.csv',skiprows=0)
+file=pd.read_csv('ising data.csv',skiprows=0)
 
 temp=file.iloc[:,0]
 E=file.iloc[:,1]
