@@ -6,7 +6,7 @@ N=20
 step=2000
 eqstep=300
 
-def init(N,p):
+def initial_arrrangements(N,p):
     lattice1 = np.random.random(size=(N, N))
     lattice = np.zeros((N,N))    
     lattice[lattice1>=p] = 1
@@ -29,7 +29,7 @@ def magnetisation(lattice):
     return np.sum(lattice)
 
 
-def mc_step(lattice,temp):
+def Rearrange(lattice,temp):
     beta=1/temp
     for a in range(N):
         for b in range(N):
@@ -45,24 +45,8 @@ def mc_step(lattice,temp):
     return lattice
 
 
-def mc_step1(lattice,temp):
-    beta=1/temp
-    for a in range(N):
-        for b in range(N):
-            i=np.random.randint(0,N)
-            j=np.random.randint(0,N)
-            sigma=lattice[i,j]
-            nb=lattice[(i+1)%N,j]+lattice[(i-1)%N,j]+lattice[i,(j+1)%N]+lattice[i,(j-1)%N]
-            del_E=2*sigma*nb
-            if del_E<0:
-                sigma=-1*sigma
-            elif np.random.rand()<np.exp(-del_E*beta):
-                sigma=-1*sigma
-            lattice[i,j]=sigma
-    return lattice
 
-
-def calcul(lattice,N,step,eqstep):
+def Observables(lattice,N,step,eqstep):
     T=np.linspace(1,6,50)    
     energies=[]
     magnet=[]
@@ -74,9 +58,9 @@ def calcul(lattice,N,step,eqstep):
         E_sqr=0
         M_sqr=0
         for k in range(eqstep):
-                mc_step(lattice,t)
+                Rearrange(lattice,t)
         for i in range(step):
-            mc_step(lattice,t)
+            Rearrange(lattice,t)
             e=energy(lattice,N)
             m=magnetisation(lattice)
             E+=e
@@ -98,5 +82,5 @@ def calcul(lattice,N,step,eqstep):
     data=pd.DataFrame({'T':T,'E':energies,'M':magnet,'Specific heat':specificheat,'Susceptib':suscept})
     data.to_csv('ising_{}_{}_check.csv'.format(p,N),index=False)
    
-lattice=init(N,p)
-calcul(lattice,N,step,eqstep)     
+lattice=initial_arrrangements(N,p)
+Observables(lattice,N,step,eqstep)     
