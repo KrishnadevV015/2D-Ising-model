@@ -28,14 +28,16 @@ def Rearrange(lattice):
             lattice[i,j]=sigma
     return lattice
 
-
+plt.figure(figsize=(10,20))
 lattice=initial_arrrangements(N,p)
-plt.subplot(1,2,1)
+plt.subplot(2,1,1)
 plt.imshow(lattice)
-plt.title('Initial arrangemet of lattice')
-plt.subplot(1,2,2)
+plt.title('Initial arrangemet of lattice with initially 50% of the spins align up',fontsize=20)
+
+plt.subplot(2,1,2)
 for i in range(100):
     Rearrange(lattice)
 plt.imshow(lattice)
-plt.title('Arrangemet of lattice after 100 steps')
+plt.title('Arrangemet of lattice after 100 steps',fontsize=20)
+plt.savefig('lattice.png',dpi=400)
 plt.show()
