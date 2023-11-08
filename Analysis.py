@@ -4,15 +4,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-file=pd.read_csv('ising data.csv',skiprows=0)
+file=pd.read_csv('ising_0.75.csv',skiprows=0)
 
-temp=file.iloc[:,0]
-E=file.iloc[:,1]
-M=file.iloc[:,2]
-Cv=file.iloc[:,3]
-X=file.iloc[:,4]
+temp=pd.Series.to_numpy(file.iloc[:,0])
+E=pd.Series.to_numpy(file.iloc[:,1])
+M=pd.Series.to_numpy(file.iloc[:,2])
+Cv=pd.Series.to_numpy(file.iloc[:,3])
+X=pd.Series.to_numpy(file.iloc[:,4])
 
-x1,y1=temp[9:15],M[9:15]
+x1,y1=temp[9:13],M[9:13]
 
 def line(x,m,c):
     return m*x+c
@@ -22,6 +22,13 @@ m=params[0]
 c=params[1]
 Tc=c
 Threesigma=3*np.sqrt(covm[1][1])
+
+MaxX=max(X)
+maxcv=max(Cv)
+I1=np.where(X==MaxX)
+I2=np.where(Cv==maxcv)
+print(temp[I1])
+print(temp[I2])
 
 plt.figure(1)
 plt.plot(temp,E,'r*-')
@@ -53,4 +60,3 @@ plt.xlabel('Temperature ($J/k_b$)',fontsize=14)
 plt.ylabel('Susceptibility',fontsize=14)
 plt.title('Susceptibility V/S Temperature',fontsize=16)
 plt.savefig('chivst.png',dpi=400)
-plt.show()
