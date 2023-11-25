@@ -23,12 +23,6 @@ c=params[1]
 Tc=c
 Threesigma=3*np.sqrt(covm[1][1])
 
-MaxX=max(X)
-maxcv=max(Cv)
-I1=np.where(X==MaxX)
-I2=np.where(Cv==maxcv)
-print(temp[I1])
-print(temp[I2])
 
 plt.figure(1)
 plt.plot(temp,E,'r*-')
