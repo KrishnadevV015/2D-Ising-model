@@ -22,8 +22,12 @@ m=params[0]
 c=params[1]
 Tc=c
 Threesigma=3*np.sqrt(covm[1][1])
-
-
+MaxX=max(X)
+maxcv=max(Cv)
+I1=np.where(X==MaxX)
+I2=np.where(Cv==maxcv)
+T1=temp[I1]
+T2=temp[I2]
 plt.figure(1)
 plt.plot(temp,E,'r*-')
 plt.xlabel('Temperature ($J/k_b$)',fontsize=14)
@@ -46,6 +50,8 @@ plt.plot(temp,Cv,'k*-')
 plt.xlabel('Temperature ($J/k_b$)',fontsize=14)
 plt.ylabel('Specific heat',fontsize=14)
 plt.title('Specific heat V/S Temperature',fontsize=16)
+plt.axvline(T1,linestyle='dashed')
+plt.text(T1+0.2,0,'{} $J/k_B$'.format(round(T1[0],2)))
 plt.savefig('cvvst.png',dpi=400)
 
 plt.figure(4)
@@ -53,4 +59,7 @@ plt.plot(temp,X,'g*-')
 plt.xlabel('Temperature ($J/k_b$)',fontsize=14)
 plt.ylabel('Susceptibility',fontsize=14)
 plt.title('Susceptibility V/S Temperature',fontsize=16)
+plt.axvline(T1,linestyle='dashed')
+plt.text(T2+0.2,0,'{} $J/k_B$'.format(round(T2[0],2)))
 plt.savefig('chivst.png',dpi=400)
+plt.show()
